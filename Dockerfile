@@ -1,7 +1,6 @@
-FROM postgres:latest
+FROM openjdk:11
 
-ENV POSTGRES_USER gris
-ENV POSTGRES_PASSWORD password
-ENV POSTGRES_DB cerberus
-
-COPY init.sql /docker-entrypoint-initdb.d/
+VOLUME /tmp
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]

@@ -1,6 +1,6 @@
 services:
-  postgres:
-    container_name: postgres
+  cerberus-db:
+    container_name: cerberus-db
     image: postgres:13.4-alpine
     environment:
       - POSTGRES_USER=gris
@@ -9,4 +9,17 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  cerberus-app:
+    build: .
+    container_name: cerberus-app
+    restart: always
+    environment:
+      - POSTGRES_USER=gris
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=cerberus
+    ports:
+      - "8080:8080"
+    depends_on:
+      - cerberus-db
