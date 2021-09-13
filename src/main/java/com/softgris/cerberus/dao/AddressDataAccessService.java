@@ -21,7 +21,6 @@ public class AddressDataAccessService implements AddressDao {
     private DataSource dataSource;
     private PlatformTransactionManager platformTransactionManager;
 
-    @Autowired
     public AddressDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
