@@ -1,11 +1,13 @@
 package com.softgris.cerberus.service;
 
 import com.softgris.cerberus.dao.AddressDao;
+import com.softgris.cerberus.dto.AddressDto;
 import com.softgris.cerberus.pojo.AddressPojo;
-import org.springframework.stereotype.Service;
-
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -17,13 +19,15 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public int saveAddress(AddressPojo address) {
-        return addressDao.saveAddress(address);
+    public BigInteger saveAddress(AddressDto address) {
+        BigInteger addressId = BigInteger.valueOf(
+            ThreadLocalRandom.current().nextLong(1_000_000_000L, 9_999_999_999L));
+        return addressDao.saveAddress(addressId, address) > 0 ? addressId : null;
     }
 
     @Override
-    public Optional<AddressPojo> getAddress(Integer i) {
-        return addressDao.getAddress(i);
+    public Optional<AddressPojo> getAddress(BigInteger addressId) {
+        return addressDao.getAddress(addressId);
     }
 
     @Override
@@ -32,7 +36,12 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public int deleteAddress(Integer i) {
-        return addressDao.deleteAddress(i);
+    public boolean deleteAddress(BigInteger addressId) {
+        return addressDao.deleteAddress(addressId) > 0;
+    }
+
+    @Override
+    public boolean updateAddress(BigInteger addressId, AddressDto address) {
+        return addressDao.updateAddress(addressId, address) > 0;
     }
 }

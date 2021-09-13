@@ -1,45 +1,39 @@
 package com.softgris.cerberus.dao;
 
+import com.softgris.cerberus.dto.AddressDto;
 import com.softgris.cerberus.pojo.AddressPojo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.PlatformTransactionManager;
-
-import javax.sql.DataSource;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class AddressDataAccessService implements AddressDao {
-    private JdbcTemplate jdbcTemplate;
 
-    // Will be used later
-    @Autowired
-    private DataSource dataSource;
-    private PlatformTransactionManager platformTransactionManager;
+    private final JdbcTemplate jdbcTemplate;
+    private final AddressMapper addressMapper;
 
     public AddressDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        this.addressMapper = new AddressMapper();
     }
 
-    public int saveAddress(AddressPojo address) {
-
+    public int saveAddress(BigInteger addressId, AddressDto address) {
         String query = "INSERT INTO address VALUES (?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(query, address.getAddressId(), address.getCountry(), address.getCounty(),
-                address.getPostalCode(), address.getLine1(), address.getLine2());
 
-//        String query = "INSERT INTO user VALUES (" + user.getUserId() +
-//                ", " + user.getAddressId() + ", " + user.getEmail() +
-//                ", " + user.getPasswordHash() + ")";
-//        return jdbcTemplate.update(query);
+        return jdbcTemplate.update(query,
+            addressId,
+            address.getCountry(),
+            address.getCounty(),
+            address.getPostalCode(),
+            address.getLine1(),
+            address.getLine2());
     }
 
-    public Optional<AddressPojo> getAddress(int i) {
+    public Optional<AddressPojo> getAddress(BigInteger addressId) {
         String query = "SELECT * FROM address WHERE address_id = ?";
-        List<AddressPojo> result = jdbcTemplate.query(query, new AddressMapper(), i);
+        List<AddressPojo> result = jdbcTemplate.query(query, addressMapper, addressId);
 
         return result.stream().findFirst();
     }
@@ -49,8 +43,20 @@ public class AddressDataAccessService implements AddressDao {
         return jdbcTemplate.query(query, new AddressMapper());
     }
 
-    public int deleteAddress(int i) {
+    public int deleteAddress(BigInteger addressId) {
         String query = "DELETE FROM address WHERE address_id = ?";
-        return jdbcTemplate.update(query, i);
+        return jdbcTemplate.update(query, addressId);
+    }
+
+    public int updateAddress(BigInteger addressId, AddressDto address) {
+        String query = "UPDATE address SET country=?, county=?, postal_code=?, line_1=?, line_2=?" +
+            " WHERE address_id=?";
+        return jdbcTemplate.update(query,
+            address.getCountry(),
+            address.getCounty(),
+            address.getPostalCode(),
+            address.getLine1(),
+            address.getLine2(),
+            addressId);
     }
 }

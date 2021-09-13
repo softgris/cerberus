@@ -1,14 +1,14 @@
 package com.softgris.cerberus.dao;
 
 import com.softgris.cerberus.pojo.AddressPojo;
-import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.springframework.jdbc.core.RowMapper;
 
-public class AddressMapper implements RowMapper {
+public class AddressMapper implements RowMapper<AddressPojo> {
+
     @Override
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public AddressPojo mapRow(ResultSet rs, int rowNum) throws SQLException {
         AddressPojo address = new AddressPojo();
         address.setAddressId(rs.getBigDecimal("address_id").toBigInteger());
         address.setCountry(rs.getString("country"));
