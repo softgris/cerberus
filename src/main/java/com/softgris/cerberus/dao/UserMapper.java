@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class UserMapper implements RowMapper {
     @Override
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public UserPojo mapRow(ResultSet rs, int rowNum) throws SQLException {
         UserPojo user = new UserPojo();
         user.setUserId(rs.getBigDecimal("user_id").toBigInteger());
         user.setAddressId(rs.getBigDecimal("address_id").toBigInteger());

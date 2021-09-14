@@ -22,8 +22,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Optional<AddressPojo> getAddress(Integer i) {
-        return addressDao.getAddress(i);
+    public Optional<AddressPojo> getAddress(Integer id) {
+        return addressDao.getAddress(id);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public int deleteAddress(Integer i) {
-        return addressDao.deleteAddress(i);
+    public int deleteAddress(Integer id) {
+        return addressDao.deleteAddress(id);
     }
 }

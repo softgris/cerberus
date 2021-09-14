@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class AddressMapper implements RowMapper {
     @Override
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public AddressPojo mapRow(ResultSet rs, int rowNum) throws SQLException {
         AddressPojo address = new AddressPojo();
         address.setAddressId(rs.getBigDecimal("address_id").toBigInteger());
         address.setCountry(rs.getString("country"));
