@@ -1,20 +1,20 @@
 package com.softgris.cerberus.dao;
 
+import com.softgris.cerberus.dao.mappers.CustomerMapper;
 import com.softgris.cerberus.pojo.CustomerPojo;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-import java.math.BigInteger;
 
 @Repository
-public class CustomerDataAccessService implements CustomerDao {
+public class CustomerDaoImpl implements CustomerDao {
 
     private RowMapper customerMapper;
     private JdbcTemplate jdbcTemplate;
 
-    public CustomerDataAccessService(JdbcTemplate jdbcTemplate) {
+    public CustomerDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         customerMapper = new CustomerMapper();
     }

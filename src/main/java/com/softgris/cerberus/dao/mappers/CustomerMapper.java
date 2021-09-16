@@ -1,4 +1,4 @@
-package com.softgris.cerberus.dao;
+package com.softgris.cerberus.dao.mappers;
 
 import com.softgris.cerberus.pojo.CustomerPojo;
 import org.springframework.jdbc.core.RowMapper;
@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerMapper implements RowMapper {
+
     @Override
     public CustomerPojo mapRow(ResultSet rs, int rowNum) throws SQLException {
         CustomerPojo customer = new CustomerPojo();
