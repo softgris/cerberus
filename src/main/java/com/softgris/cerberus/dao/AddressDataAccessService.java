@@ -3,6 +3,7 @@ package com.softgris.cerberus.dao;
 import com.softgris.cerberus.pojo.AddressPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -14,17 +15,16 @@ import java.util.Optional;
 
 @Repository
 public class AddressDataAccessService implements AddressDao {
-    private JdbcTemplate jdbcTemplate;
 
-    // Will be used later
-    @Autowired
-    private DataSource dataSource;
-    private PlatformTransactionManager platformTransactionManager;
+    private RowMapper addressMapper;
+    private JdbcTemplate jdbcTemplate;
 
     public AddressDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        addressMapper = new AddressMapper();
     }
 
+    @Override
     public int saveAddress(AddressPojo address) {
 
         String query = "INSERT INTO address VALUES (?, ?, ?, ?, ?, ?)";
@@ -37,18 +37,21 @@ public class AddressDataAccessService implements AddressDao {
 //        return jdbcTemplate.update(query);
     }
 
+    @Override
     public Optional<AddressPojo> getAddress(int i) {
         String query = "SELECT * FROM address WHERE address_id = ?";
-        List<AddressPojo> result = jdbcTemplate.query(query, new AddressMapper(), i);
+        List<AddressPojo> result = jdbcTemplate.query(query, addressMapper, i);
 
         return result.stream().findFirst();
     }
 
+    @Override
     public List<AddressPojo> getAllAddresses() {
         String query = "SELECT * FROM address";
-        return jdbcTemplate.query(query, new AddressMapper());
+        return jdbcTemplate.query(query, addressMapper);
     }
 
+    @Override
     public int deleteAddress(int i) {
         String query = "DELETE FROM address WHERE address_id = ?";
         return jdbcTemplate.update(query, i);

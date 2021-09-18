@@ -41,18 +41,18 @@ ALTER TABLE public.address OWNER TO gris;
 
 --
 -- TOC entry 200 (class 1259 OID 16388)
--- Name: user; Type: TABLE; Schema: public; Owner: postgres
+-- Name: customer; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."user" (
-    user_id bigint NOT NULL,
+CREATE TABLE public.customer (
+    customer_id bigint NOT NULL,
     address_id bigint NOT NULL,
     email character varying(256) NOT NULL,
     password_hash character varying(64) NOT NULL
 );
 
 
-ALTER TABLE public."user" OWNER TO gris;
+ALTER TABLE public.customer OWNER TO gris;
 
 --
 -- TOC entry 2941 (class 0 OID 16395)
@@ -68,10 +68,10 @@ COPY public.address (address_id, country, county, postal_code, line_1, line_2) F
 --
 -- TOC entry 2940 (class 0 OID 16388)
 -- Dependencies: 200
--- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."user" (user_id, address_id, email, password_hash) FROM stdin;
+COPY public.customer (customer_id, address_id, email, password_hash) FROM stdin;
 9876543210	1234567890	mariusgrygore@gmail.com	90978y232riuhnsdffjkvhpw79yr23p8r
 \.
 
@@ -87,19 +87,19 @@ ALTER TABLE ONLY public.address
 
 --
 -- TOC entry 2806 (class 2606 OID 16392)
--- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: customer customer_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT user_pkey PRIMARY KEY (user_id);
+ALTER TABLE ONLY public.customer
+    ADD CONSTRAINT customer_pkey PRIMARY KEY (customer_id);
 
 
 --
 -- TOC entry 2809 (class 2606 OID 16400)
--- Name: user address_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: customer address_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."user"
+ALTER TABLE ONLY public.customer
     ADD CONSTRAINT address_fkey FOREIGN KEY (address_id) REFERENCES public.address(address_id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
 
 

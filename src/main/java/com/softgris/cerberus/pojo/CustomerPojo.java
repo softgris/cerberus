@@ -2,19 +2,19 @@ package com.softgris.cerberus.pojo;
 
 import java.math.BigInteger;
 
-public class UserPojo {
+public class CustomerPojo {
 
-    private BigInteger userId;
+    private BigInteger customerId;
     private BigInteger addressId;
     private String email;
     private String passwordHash;
 
-    public BigInteger getUserId() {
-        return userId;
+    public BigInteger getCustomerId() {
+        return customerId;
     }
 
-    public void setUserId(BigInteger userId) {
-        this.userId = userId;
+    public void setCustomerId(BigInteger customerId) {
+        this.customerId = customerId;
     }
 
     public BigInteger getAddressId() {
