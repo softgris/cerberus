@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg100+1)
 -- Dumped by pg_dump version 13.3
 
--- Started on 2021-08-26 20:04:35
+-- Started on 2021-09-16 23:20:52
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,8 +23,8 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 201 (class 1259 OID 16395)
--- Name: address; Type: TABLE; Schema: public; Owner: postgres
+-- TOC entry 200 (class 1259 OID 16385)
+-- Name: address; Type: TABLE; Schema: public; Owner: gris
 --
 
 CREATE TABLE public.address (
@@ -40,8 +40,8 @@ CREATE TABLE public.address (
 ALTER TABLE public.address OWNER TO gris;
 
 --
--- TOC entry 200 (class 1259 OID 16388)
--- Name: customer; Type: TABLE; Schema: public; Owner: postgres
+-- TOC entry 201 (class 1259 OID 16388)
+-- Name: customer; Type: TABLE; Schema: public; Owner: gris
 --
 
 CREATE TABLE public.customer (
@@ -55,30 +55,38 @@ CREATE TABLE public.customer (
 ALTER TABLE public.customer OWNER TO gris;
 
 --
--- TOC entry 2941 (class 0 OID 16395)
--- Dependencies: 201
--- Data for Name: address; Type: TABLE DATA; Schema: public; Owner: postgres
+-- TOC entry 203 (class 1259 OID 16411)
+-- Name: customer_item; Type: TABLE; Schema: public; Owner: gris
 --
 
-COPY public.address (address_id, country, county, postal_code, line_1, line_2) FROM stdin;
-1234567890	UK	Greater London	HA2 8AR	32 Sherwood Road	\N
-\.
+CREATE TABLE public.customer_item (
+    customer_item_id bigint NOT NULL,
+    customer_id bigint NOT NULL,
+    item_id bigint NOT NULL
+);
 
 
---
--- TOC entry 2940 (class 0 OID 16388)
--- Dependencies: 200
--- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.customer (customer_id, address_id, email, password_hash) FROM stdin;
-9876543210	1234567890	mariusgrygore@gmail.com	90978y232riuhnsdffjkvhpw79yr23p8r
-\.
-
+ALTER TABLE public.customer_item OWNER TO gris;
 
 --
--- TOC entry 2808 (class 2606 OID 16399)
--- Name: address address_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 202 (class 1259 OID 16400)
+-- Name: item; Type: TABLE; Schema: public; Owner: gris
+--
+
+CREATE TABLE public.item (
+    description character varying(512),
+    item_id bigint NOT NULL,
+    type character varying(256) NOT NULL,
+    stock integer NOT NULL,
+    CONSTRAINT positive_stock CHECK ((stock >= 0))
+);
+
+
+ALTER TABLE public.item OWNER TO gris;
+
+--
+-- TOC entry 2816 (class 2606 OID 16392)
+-- Name: address address_pkey; Type: CONSTRAINT; Schema: public; Owner: gris
 --
 
 ALTER TABLE ONLY public.address
@@ -86,8 +94,17 @@ ALTER TABLE ONLY public.address
 
 
 --
--- TOC entry 2806 (class 2606 OID 16392)
--- Name: customer customer_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2824 (class 2606 OID 16415)
+-- Name: customer_item customer_item_pkey; Type: CONSTRAINT; Schema: public; Owner: gris
+--
+
+ALTER TABLE ONLY public.customer_item
+    ADD CONSTRAINT customer_item_pkey PRIMARY KEY (customer_item_id);
+
+
+--
+-- TOC entry 2818 (class 2606 OID 16394)
+-- Name: customer customer_pkey; Type: CONSTRAINT; Schema: public; Owner: gris
 --
 
 ALTER TABLE ONLY public.customer
@@ -95,15 +112,51 @@ ALTER TABLE ONLY public.customer
 
 
 --
--- TOC entry 2809 (class 2606 OID 16400)
--- Name: customer address_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2820 (class 2606 OID 16408)
+-- Name: item item_pkey; Type: CONSTRAINT; Schema: public; Owner: gris
+--
+
+ALTER TABLE ONLY public.item
+    ADD CONSTRAINT item_pkey PRIMARY KEY (item_id);
+
+
+--
+-- TOC entry 2822 (class 2606 OID 16410)
+-- Name: item unique_types; Type: CONSTRAINT; Schema: public; Owner: gris
+--
+
+ALTER TABLE ONLY public.item
+    ADD CONSTRAINT unique_types UNIQUE (type);
+
+
+--
+-- TOC entry 2825 (class 2606 OID 16395)
+-- Name: customer address_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gris
 --
 
 ALTER TABLE ONLY public.customer
     ADD CONSTRAINT address_fkey FOREIGN KEY (address_id) REFERENCES public.address(address_id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
 
 
--- Completed on 2021-08-26 20:04:35
+--
+-- TOC entry 2826 (class 2606 OID 16416)
+-- Name: customer_item customer_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gris
+--
+
+ALTER TABLE ONLY public.customer_item
+    ADD CONSTRAINT customer_fkey FOREIGN KEY (customer_id) REFERENCES public.customer(customer_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2827 (class 2606 OID 16421)
+-- Name: customer_item item_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gris
+--
+
+ALTER TABLE ONLY public.customer_item
+    ADD CONSTRAINT item_fkey FOREIGN KEY (item_id) REFERENCES public.item(item_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+-- Completed on 2021-09-16 23:20:52
 
 --
 -- PostgreSQL database dump complete

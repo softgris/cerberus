@@ -1,25 +1,21 @@
 package com.softgris.cerberus.dao;
 
+import com.softgris.cerberus.dao.mappers.AddressMapper;
 import com.softgris.cerberus.pojo.AddressPojo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class AddressDataAccessService implements AddressDao {
+public class AddressDaoImpl implements AddressDao {
 
     private RowMapper addressMapper;
     private JdbcTemplate jdbcTemplate;
 
-    public AddressDataAccessService(JdbcTemplate jdbcTemplate) {
+    public AddressDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         addressMapper = new AddressMapper();
     }
