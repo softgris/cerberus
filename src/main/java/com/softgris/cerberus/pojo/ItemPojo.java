@@ -5,9 +5,12 @@ import java.math.BigInteger;
 public class ItemPojo {
 
     private BigInteger itemId;
-    private String type;
+    private String name;
     private String description;
-    private Integer stock;
+    private String type;
+    private BigInteger priceMinor;
+    private BigInteger stock;
+    private boolean enabled;
 
     public BigInteger getItemId() {
         return itemId;
@@ -17,12 +20,12 @@ public class ItemPojo {
         this.itemId = itemId;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -33,11 +36,35 @@ public class ItemPojo {
         this.description = description;
     }
 
-    public Integer getStock() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public BigInteger getPriceMinor() {
+        return priceMinor;
+    }
+
+    public void setPriceMinor(BigInteger priceMinor) {
+        this.priceMinor = priceMinor;
+    }
+
+    public BigInteger getStock() {
         return stock;
     }
 
-    public void setStock(Integer stock) {
+    public void setStock(BigInteger stock) {
         this.stock = stock;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

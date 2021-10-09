@@ -2,17 +2,17 @@ package com.softgris.cerberus.dao;
 
 import com.softgris.cerberus.dao.mappers.ItemMapper;
 import com.softgris.cerberus.pojo.ItemPojo;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-
 @Repository
 public class ItemDaoImpl implements ItemDao {
 
-    RowMapper itemMapper;
+    RowMapper<ItemPojo> itemMapper;
     JdbcTemplate jdbcTemplate;
 
     public ItemDaoImpl(JdbcTemplate jdbcTemplate) {
@@ -22,17 +22,21 @@ public class ItemDaoImpl implements ItemDao {
 
     @Override
     public int saveItem(ItemPojo item) {
-
-        String query = "INSERT INTO item(item_id, type, description, stock) VALUES (?, ?, ?, ?)";
-        return jdbcTemplate.update(query, item.getItemId(), item.getType(), item.getDescription(), item.getStock());
+        String query = "INSERT INTO item(item_id, name, description, type, price_minor, stock, enabled) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(query,
+            item.getItemId(),
+            item.getName(),
+            item.getDescription(),
+            item.getType(),
+            item.getPriceMinor(),
+            item.getStock(),
+            item.isEnabled());
     }
 
     @Override
-    public Optional<ItemPojo> getItem(Integer id) {
+    public Optional<ItemPojo> getItem(BigInteger itemId) {
         String query = "SELECT * FROM item WHERE item_id = ?";
-
-        List<ItemPojo> result = jdbcTemplate.query(query, itemMapper, id);
-
+        List<ItemPojo> result = jdbcTemplate.query(query, itemMapper, itemId);
         return result.stream().findFirst();
     }
 
@@ -43,21 +47,21 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     @Override
-    public int deleteItem(Integer id) {
+    public int deleteItem(BigInteger itemId) {
         String query = "DELETE FROM item WHERE item_id = ?";
-        return jdbcTemplate.update(query, id);
+        return jdbcTemplate.update(query, itemId);
     }
 
     @Override
     public int updateItem(ItemPojo item) {
-//        String query = "UPDATE customer SET customer_id = " + customer.getAddressId() +
-//                ", email = " + customer.getEmail() + ", password_hash = " + customer.getPasswordHash() +
-//                " where customer_id = " + customer.getCustomer();
-//        return jdbcTemplate.update(query);
-
-        String query = "UPDATE item(type, description, stock) SET (?, ?, ?) WHERE item_id = ?";
-        return jdbcTemplate.update(query, item.getType(), item.getDescription(), item.getStock(), item.getItemId());
+        String query = "UPDATE item(name, description, type, price_minor, stock, enabled) SET (?, ?, ?, ?, ?, ?) WHERE item_id = ?";
+        return jdbcTemplate.update(query,
+            item.getName(),
+            item.getDescription(),
+            item.getType(),
+            item.getPriceMinor(),
+            item.getStock(),
+            item.isEnabled(),
+            item.getItemId());
     }
-
-
 }

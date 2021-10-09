@@ -2,10 +2,10 @@ package com.softgris.cerberus.service;
 
 import com.softgris.cerberus.dao.ItemDao;
 import com.softgris.cerberus.pojo.ItemPojo;
-import org.springframework.stereotype.Service;
-
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -22,8 +22,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Optional<ItemPojo> getItem(Integer id) {
-        return itemDao.getItem(id);
+    public Optional<ItemPojo> getItem(BigInteger itemId) {
+        return itemDao.getItem(itemId);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public int deleteItem(Integer id) {
-        return itemDao.deleteItem(id);
+    public int deleteItem(BigInteger itemId) {
+        return itemDao.deleteItem(itemId);
     }
 }
