@@ -75,7 +75,7 @@ CREATE TABLE cerberus.item (
     type varchar(50) NOT NULL,
     price_minor bigint NOT NULL,
     stock bigint NOT NULL,
-    enable boolean NOT NULL DEFAULT true
+    enabled boolean NOT NULL DEFAULT true
 );
 ALTER TABLE cerberus.item OWNER TO gris;
 
@@ -249,7 +249,7 @@ INSERT INTO cerberus.address(user_id, country, county, city, postal_code, line_1
     (995436425, 'Romania', 'Iasi', 'Iasi', '123456', 'Strada Surcelelor 62', 'et. 2, ap. 12'),
     (224743443, 'United Kingdom', 'Greater London', 'Hounslow', 'BB2 2BB', '19 Old Avenue', null);
 
-INSERT INTO cerberus.item(item_id, name, description, type, price_minor, stock, enable) VALUES
+INSERT INTO cerberus.item(item_id, name, description, type, price_minor, stock, enabled) VALUES
     (198738965, 'Apple iPhone 12', 'Phone made by Apple', 'Smartphone', 70000, 25, true),
     (177669917, 'Samsung Galaxy S21', 'Phone made by Samsung', 'Smartphone', 65000, 20, true),
     (340132899, 'Lenovo Thinkpad T495', 'Laptop made by Lenovo', 'Laptop', 120000, 10, true);

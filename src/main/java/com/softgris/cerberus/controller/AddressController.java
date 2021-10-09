@@ -1,11 +1,17 @@
 package com.softgris.cerberus.controller;
 
-import com.softgris.cerberus.service.AddressService;
-import org.springframework.web.bind.annotation.*;
-
 import com.softgris.cerberus.pojo.AddressPojo;
+import com.softgris.cerberus.service.AddressService;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/address")
@@ -22,9 +28,9 @@ public class AddressController {
         return addressService.saveAddress(address);
     }
 
-    @GetMapping("{id}")
-    public Optional<AddressPojo> getAddress(@PathVariable("id") Integer id) {
-        return addressService.getAddress(id);
+    @GetMapping("{userId}")
+    public Optional<AddressPojo> getAddress(@PathVariable("userId") BigInteger userId) {
+        return addressService.getAddress(userId);
     }
 
     @GetMapping
@@ -32,8 +38,8 @@ public class AddressController {
         return addressService.getAllAddresses();
     }
 
-    @DeleteMapping("{id}")
-    public int deleteAddress(@PathVariable("id") Integer id) {
-        return addressService.deleteAddress(id);
+    @DeleteMapping("{userId}")
+    public int deleteAddress(@PathVariable("userId") BigInteger userId) {
+        return addressService.deleteAddress(userId);
     }
 }
