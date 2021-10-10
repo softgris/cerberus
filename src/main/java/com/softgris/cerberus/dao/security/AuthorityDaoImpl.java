@@ -1,4 +1,4 @@
-package com.softgris.cerberus.dao;
+package com.softgris.cerberus.dao.security;
 
 import com.softgris.cerberus.dao.mappers.AuthorityMapper;
 import com.softgris.cerberus.pojo.AuthorityPojo;

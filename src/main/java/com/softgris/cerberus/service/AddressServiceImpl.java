@@ -1,6 +1,6 @@
 package com.softgris.cerberus.service;
 
-import com.softgris.cerberus.dao.AddressDao;
+import com.softgris.cerberus.dao.user.AddressDao;
 import com.softgris.cerberus.pojo.AddressPojo;
 import java.math.BigInteger;
 import java.util.List;

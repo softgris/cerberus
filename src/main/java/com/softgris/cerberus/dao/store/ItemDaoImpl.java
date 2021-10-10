@@ -1,4 +1,4 @@
-package com.softgris.cerberus.dao;
+package com.softgris.cerberus.dao.store;
 
 import com.softgris.cerberus.dao.mappers.ItemMapper;
 import com.softgris.cerberus.pojo.ItemPojo;

@@ -1,4 +1,4 @@
-package com.softgris.cerberus.dao;
+package com.softgris.cerberus.dao.security;
 
 import com.softgris.cerberus.pojo.AuthorityPojo;
 import java.math.BigInteger;

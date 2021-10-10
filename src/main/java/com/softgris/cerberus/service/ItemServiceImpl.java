@@ -1,6 +1,6 @@
 package com.softgris.cerberus.service;
 
-import com.softgris.cerberus.dao.ItemDao;
+import com.softgris.cerberus.dao.store.ItemDao;
 import com.softgris.cerberus.pojo.ItemPojo;
 import java.math.BigInteger;
 import java.util.List;

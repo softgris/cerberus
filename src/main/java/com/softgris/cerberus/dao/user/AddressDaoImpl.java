@@ -1,4 +1,4 @@
-package com.softgris.cerberus.dao;
+package com.softgris.cerberus.dao.user;
 
 import com.softgris.cerberus.dao.mappers.AddressMapper;
 import com.softgris.cerberus.pojo.AddressPojo;

@@ -1,4 +1,4 @@
-package com.softgris.cerberus.dao;
+package com.softgris.cerberus.dao.user;
 
 import com.softgris.cerberus.dao.mappers.UserMapper;
 import com.softgris.cerberus.pojo.UserPojo;
