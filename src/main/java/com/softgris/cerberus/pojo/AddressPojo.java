@@ -4,19 +4,20 @@ import java.math.BigInteger;
 
 public class AddressPojo {
 
-    private BigInteger addressId;
+    private BigInteger userId;
     private String country;
     private String county;
+    private String city;
     private String postalCode;
     private String line1;
     private String line2;
 
-    public BigInteger getAddressId() {
-        return addressId;
+    public BigInteger getUserId() {
+        return userId;
     }
 
-    public void setAddressId(BigInteger addressId) {
-        this.addressId = addressId;
+    public void setUserId(BigInteger userId) {
+        this.userId = userId;
     }
 
     public String getCountry() {
@@ -33,6 +34,14 @@ public class AddressPojo {
 
     public void setCounty(String county) {
         this.county = county;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getPostalCode() {

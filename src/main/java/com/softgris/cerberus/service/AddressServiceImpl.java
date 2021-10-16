@@ -1,11 +1,11 @@
 package com.softgris.cerberus.service;
 
-import com.softgris.cerberus.dao.AddressDao;
+import com.softgris.cerberus.dao.user.AddressDao;
 import com.softgris.cerberus.pojo.AddressPojo;
-import org.springframework.stereotype.Service;
-
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -22,8 +22,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Optional<AddressPojo> getAddress(Integer id) {
-        return addressDao.getAddress(id);
+    public Optional<AddressPojo> getAddress(BigInteger addressId) {
+        return addressDao.getAddress(addressId);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public int deleteAddress(Integer id) {
-        return addressDao.deleteAddress(id);
+    public int deleteAddress(BigInteger addressId) {
+        return addressDao.deleteAddress(addressId);
     }
 }
