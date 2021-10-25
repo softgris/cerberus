@@ -24,13 +24,13 @@ public class AddressController {
     }
 
     @PostMapping
-    public int saveAddress(@RequestBody AddressPojo address) {
+    public AddressPojo saveAddress(@RequestBody AddressPojo address) {
         return addressService.saveAddress(address);
     }
 
-    @GetMapping("{userId}")
-    public Optional<AddressPojo> getAddress(@PathVariable("userId") BigInteger userId) {
-        return addressService.getAddress(userId);
+    @GetMapping("{addressId}")
+    public Optional<AddressPojo> getAddress(@PathVariable("addressId") BigInteger addressId) {
+        return addressService.getAddress(addressId);
     }
 
     @GetMapping
@@ -38,8 +38,8 @@ public class AddressController {
         return addressService.getAllAddresses();
     }
 
-    @DeleteMapping("{userId}")
-    public int deleteAddress(@PathVariable("userId") BigInteger userId) {
-        return addressService.deleteAddress(userId);
+    @DeleteMapping("{addressId}")
+    public void deleteAddress(@PathVariable("addressId") BigInteger addressId) {
+        addressService.deleteAddress(addressId);
     }
 }
